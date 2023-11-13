@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.interface {
+    @apply w-full h-screen flex items-center justify-center flex-col;
+}
