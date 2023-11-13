@@ -12,9 +12,11 @@
     "@capacitor/android": "^5.5.1",
     "@capacitor/core": "^5.5.1",
     "@capacitor/ios": "^5.5.1",
+    "axios": "^1.6.1",
     "next": "14.0.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sass": "^1.69.5"
   },
   "devDependencies": {
     "@capacitor/cli": "^5.5.1",
