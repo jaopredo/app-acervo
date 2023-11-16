@@ -1,12 +1,20 @@
 import { UserLogin, UserRegister } from "../components/user"
+import {
+    DeleteRequestProps,
+    GetRequestProps,
+    PatchRequestProps,
+    PostRequestProps,
+    PutRequestProps
+} from "@/types/api/sources"
 
 export interface SourceInterface {
     alias: (value: string) => void
-    get: (id: number | undefined) => Promise<any>
-    post: (data: any) => Promise<any>
-    delete: (id: number) => Promise<any>
-    patch: (id: number, data: any) => Promise<any>
-    put: (id: number, data: any) => Promise<any>
+    getAll: (page: number, filters: any) => Promise<any>
+    get: (props: GetRequestProps) => Promise<any>
+    post: <T>(props: PostRequestProps<T>) => Promise<any>
+    delete: (props: DeleteRequestProps) => Promise<any>
+    patch: <T>(props: PatchRequestProps<T>) => Promise<any>
+    put: <T>(props: PutRequestProps<T>) => Promise<any>
 }
 
 

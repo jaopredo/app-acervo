@@ -7,7 +7,7 @@ import { UserSourceInterface } from "@/types/global/sources"
 export default class UserSource implements UserSourceInterface {
     async register(credentials: UserRegister): Promise<any> {
         try {
-            return await APIInterface.post('register', credentials)
+            return await APIInterface.post<UserRegister>('register', { data: credentials })
         } catch(err) {
             return {
                 message: "Error"
@@ -17,7 +17,7 @@ export default class UserSource implements UserSourceInterface {
 
     async login(credentials: UserLogin): Promise<any> {
         try {
-            return await APIInterface.post('login', credentials)
+            return await APIInterface.post<UserLogin>('login', { data: credentials })
         } catch(err) {
             return {
                 message: "Error"
@@ -27,7 +27,7 @@ export default class UserSource implements UserSourceInterface {
 
     async logout(): Promise<any> {
         try {
-            return await APIInterface.post('logout', {})
+            return await APIInterface.post('logout', { data: {} })
         } catch(err) {
             return {
                 message: "Error"

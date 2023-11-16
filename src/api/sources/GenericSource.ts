@@ -1,5 +1,12 @@
 import APIInterface from ".."
 import { SourceInterface } from "../../types/global/sources"
+import {
+    DeleteRequestProps,
+    GetRequestProps,
+    PatchRequestProps,
+    PostRequestProps,
+    PutRequestProps
+} from "@/types/api/sources"
 
 export default class GenericSource implements SourceInterface {
     route: string = ""  // Propriedade que diz a rota
@@ -12,12 +19,22 @@ export default class GenericSource implements SourceInterface {
         //     throw Error
         // }
     }
+    
+    // Método GET ALL
+    async getAll(page: number, filters: any): Promise<any> {
+        try {
+            return await APIInterface.getAll(this.route, page, filters)
+        } catch (err) {
+            return {
+                message: "error"
+            }
+        }
+    }
 
     // Método GET
-    async get(id: number | undefined = undefined) {
+    async get(props: GetRequestProps) {
         try {
-            // Exemplo -> APIInterface.get('books', 2)
-            return await APIInterface.get(this.route, id)
+            return await APIInterface.get(this.route, props)
         } catch (err) {
             return {
                 message: "error"
@@ -26,9 +43,9 @@ export default class GenericSource implements SourceInterface {
     }
 
 
-    async post(data: any) {
+    async post<T>(props: PostRequestProps<T>) {
         try {
-            return await APIInterface.post(this.route, data)
+            return await APIInterface.post(this.route, props)
         } catch (err) {
             return {
                 message: "error"
@@ -37,9 +54,9 @@ export default class GenericSource implements SourceInterface {
     }
 
 
-    async delete(id: number) {
+    async delete(props: DeleteRequestProps) {
         try {
-            return await APIInterface.delete(this.route, id)
+            return await APIInterface.delete(this.route, props)
         } catch (err) {
             return {
                 message: "error"
@@ -48,9 +65,9 @@ export default class GenericSource implements SourceInterface {
     }
 
 
-    async put(id: number, data: any) {
+    async put<T>(props: PutRequestProps<T>) {
         try {
-            return await APIInterface.put(this.route, id, data)
+            return await APIInterface.put(this.route, props)
         } catch (err) {
             return {
                 message: "error"
@@ -59,9 +76,9 @@ export default class GenericSource implements SourceInterface {
     }
 
 
-    async patch(id: number, data: any) {
+    async patch<T>(props: PatchRequestProps<T>) {
         try {
-            return await APIInterface.patch(this.route, id, data)
+            return await APIInterface.patch(this.route, props)
         } catch (err) {
             return {
                 message: "error"
