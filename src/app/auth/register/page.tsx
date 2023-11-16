@@ -17,9 +17,7 @@ export default function Page() {
     const onSubmit: SubmitHandler<UserRegister> = credentials => {
         async function register() {
             const resp = await userService.register(credentials)
-            console.log(resp)
         }
-
         register()
     }
 
