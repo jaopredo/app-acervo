@@ -1,0 +1,47 @@
+/* UBUNTU */
+@font-face {  // Normal
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-Regular.ttf');
+    font-weight: normal;
+}
+@font-face {  // Negrito
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-Bold.ttf');
+    font-weight: bolder;
+}
+@font-face {  // Itálico
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-Italic.ttf');
+    font-style: italic;
+}
+
+@font-face {  // Negrito e Itálico
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-BoldItalic.ttf');
+    font-style: italic;
+    font-weight: bolder;
+}
+
+@font-face {  // Leve
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-Light.ttf');
+    font-weight: lighter;
+}
+@font-face {  // Leve e Itálico
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-LightItalic.ttf');
+    font-style: italic;
+    font-weight: lighter;
+}
+
+@font-face {  // Médio
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-Medium.ttf');
+    font-weight: bold;
+}
+@font-face {  // Médio
+    font-family: 'Ubuntu';
+    src: url('../../resources/fonts/Ubuntu/Ubuntu-MediumItalic.ttf');
+    font-style: italic;
+    font-weight: bold;
+}

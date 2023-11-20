@@ -14,3 +14,14 @@ export type UserLogin = {
     email: string,
     password: string
 }
+
+
+export type UserAuthResponse = {
+    status: string
+    message: string,
+    user: UserRegister
+    authorisation: {
+        type: string
+        token: string
+    }
+}

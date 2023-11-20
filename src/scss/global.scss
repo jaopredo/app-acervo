@@ -1,8 +1,64 @@
+@use "./fonts.scss";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 .interface {
-    @apply w-full h-screen flex items-center justify-center flex-col;
+    @apply w-full h-screen flex items-center justify-center;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; 
+    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
+    outline: none !important;
+
+    font-family: 'Ubuntu';
+}
+
+
+/* BOTÕES */
+.button {
+    @apply p-3 rounded-xl;
+}
+
+.night-button {
+    @extend .button;
+    @apply bg-night-light text-white active:bg-night;
+}
+
+.leaf-button {
+    @extend .button;
+    @apply bg-leaf text-white active:bg-leaf-dark;
+}
+
+/* FORMULÁRIO */
+.form-error {
+    @apply text-sm text-rose-500 font-bold;
+}
+
+.input-group {
+    @apply border-t border-black p-2;
+
+    legend {
+        @apply p-2;
+    }
+}
+
+.input-container {
+    @apply flex flex-col justify-center mb-2;
+
+    label {
+        @apply font-semibold text-sm;
+    }
+}
+
+.input {
+    @apply font-normal p-2;
+}
+
+.input-error {
+    @extend .input;
+    @apply text-rose-500 border-b-rose-500 focus:border-b-rose-500;
 }
