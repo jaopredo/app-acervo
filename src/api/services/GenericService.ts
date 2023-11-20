@@ -3,6 +3,11 @@ import { SourceInterface } from "@/types/global/sources"
 
 import GenericSource from "../sources/GenericSource"
 
+import { DeleteRequestProps, GetRequestProps, PostRequestProps, PutRequestProps } from "@/types/api/sources"
+
+/* TYPES */
+import { GetAllServiceRequestProps } from "@/types/api/services"
+
 
 export default class GenericService {
     private source: SourceInterface
@@ -15,32 +20,38 @@ export default class GenericService {
         this.source.alias(value)
     }
 
-    async get(id: number | undefined = undefined) {
-        return await this.source.get(id).then((response: AxiosResponse) => {
+    async getAll({page, filters}: GetAllServiceRequestProps = { page: 1, filters: {} }): Promise<AxiosResponse> {
+        return await this.source.getAll(page || 1, filters).then((response: AxiosResponse) => {
             return response.data
         }).catch((e: Error) => Promise.reject(e))
     }
 
-    async create(data: any) {
-        return await this.source.post(data).then((response: AxiosResponse) => {
+    async get({ id, customHeader }: GetRequestProps): Promise<AxiosResponse> {
+        return await this.source.get({id, customHeader}).then((response: AxiosResponse) => {
             return response.data
         }).catch((e: Error) => Promise.reject(e))
     }
 
-    async delete(id: number) {
-        return await this.source.delete(id).then((response: AxiosResponse) => {
+    async create<T>(props: PostRequestProps<T>) {
+        return await this.source.post<T>(props).then((response: AxiosResponse) => {
             return response.data
         }).catch((e: Error) => Promise.reject(e))
     }
 
-    async put(id: number, data: any) {
-        return await this.source.put(id, data).then((response: AxiosResponse) => {
+    async delete(props: DeleteRequestProps) {
+        return await this.source.delete(props).then((response: AxiosResponse) => {
             return response.data
         }).catch((e: Error) => Promise.reject(e))
     }
 
-    async patch(id: number, data: any) {
-        return await this.source.patch(id, data).then((response: AxiosResponse) => {
+    async put<T>(props: PutRequestProps<T>) {
+        return await this.source.put(props).then((response: AxiosResponse) => {
+            return response.data
+        }).catch((e: Error) => Promise.reject(e))
+    }
+
+    async patch<T>(props: PutRequestProps<T>) {
+        return await this.source.patch(props).then((response: AxiosResponse) => {
             return response.data
         }).catch((e: Error) => Promise.reject(e))
     }
