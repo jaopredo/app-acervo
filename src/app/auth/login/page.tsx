@@ -1,5 +1,6 @@
 'use client'
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 /* ICONS */
@@ -22,6 +23,7 @@ import { UserLogin } from "@/types/components/user"
 
 export default function Page() {
     const methods = useForm<UserLogin>()
+    const router = useRouter()
     const { handleSubmit } = methods
     const { userService } = useGlobalContext()
 
@@ -30,6 +32,7 @@ export default function Page() {
             const resp = await userService.login(credentials)
             LocalStorage.save('token', resp.authorisation.token)
             LocalStorage.save('token', resp.user)
+            router.push('/signed/books')
         }
         login()
     }

@@ -1,5 +1,6 @@
 'use client'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import AsyncSelect from 'react-select/async'
 import LocalStorage from '@/storage'
 
@@ -24,6 +25,7 @@ import { ClassroomType } from '@/types/api/modals'
 
 export default function Page() {
     const methods = useForm<UserRegister>()
+    const router = useRouter()
     
     const {
         handleSubmit,
@@ -39,6 +41,8 @@ export default function Page() {
             
             LocalStorage.save('token', resp.authorisation.token)
             LocalStorage.save('user', resp.user)
+
+            router.push('/signed/books')
         }
         register()
     }
