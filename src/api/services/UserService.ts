@@ -20,7 +20,10 @@ export default class UserService {
     async login(credentials: UserLogin): Promise<UserAuthResponse> {
         return await this.source.login(credentials)
         .then((response: AxiosResponse) => response.data)
-        .catch((err) => Promise.reject(err))
+        .catch((err) => {
+            console.log('Caiu aqui')   
+            return Promise.reject(err)
+        })
     }
 
     async logout() {

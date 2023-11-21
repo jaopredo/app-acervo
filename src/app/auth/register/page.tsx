@@ -39,10 +39,13 @@ export default function Page() {
         async function register() {
             const resp = await userService.register(credentials)
             
-            LocalStorage.save('token', resp.authorisation.token)
-            LocalStorage.save('user', resp.user)
-
-            router.push('/signed/books')
+            if (resp) {
+                Promise.all([
+                    LocalStorage.save('token', resp.authorisation.token),
+                    LocalStorage.save('user', resp.user)
+                ])
+                router.push('/signed/books')
+            }
         }
         register()
     }
@@ -127,7 +130,13 @@ export default function Page() {
                     <Password
                         name="password"
                         label="Senha: "
-                        validation={{ required: true }}
+                        validation={{
+                            required: true,
+                            minLength: {
+                                message: "Senha muito curta",
+                                value: 8
+                            }
+                        }}
                         placeholder='Digite sua senha'
                         Icon={FaLock}
                     />

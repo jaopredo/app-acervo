@@ -16,4 +16,9 @@ export default class LocalStorage {
             return JSON.parse(retrieve.value);
         }
     }
+
+    // JSON "remove" example
+    static async remove (key: string) {
+        await Preferences.remove({ key })
+    }
 }

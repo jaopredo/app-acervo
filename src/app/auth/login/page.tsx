@@ -30,9 +30,13 @@ export default function Page() {
     const onSubmit: SubmitHandler<UserLogin> = credentials => {
         async function login() {
             const resp = await userService.login(credentials)
-            LocalStorage.save('token', resp.authorisation.token)
-            LocalStorage.save('token', resp.user)
-            router.push('/signed/books')
+            if (resp) {
+                Promise.all([
+                    LocalStorage.save('token', resp.authorisation.token),
+                    LocalStorage.save('user', resp.user)
+                ])
+                router.push('/signed/books')
+            }
         }
         login()
     }

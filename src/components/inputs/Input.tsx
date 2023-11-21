@@ -28,16 +28,16 @@ export default function Input({
     return <div className="input-container">
         <label htmlFor={name}>{label}</label>
         <div
-            className={`transition-all flex items-center border-b ${focused?'border-leaf':'border-black'}`}
+            className={`transition-all flex items-center border-b ${focused?'border-leaf':'border-black'} ${errors[name]&&'input-error'}`}
         >
             <div className="w-5 h-5">
                 {Icon && <Icon
-                    className={`transition-all w-full h-full ${focused?'text-leaf':'text-black'}`}
+                    className={`transition-all w-full h-full ${focused?'text-leaf':'text-black'} ${errors[name] && '!text-rose-500'}`}
                 />}
             </div>
 
             { !masked &&  <input
-                className={errors[name]?'input-error':'input'}
+                className='input'
                 {...rest}
                 {...register(name, validation)}
                 onFocus={() => setFocused(true)}
@@ -53,9 +53,8 @@ export default function Input({
                     onBlur={() => setFocused(false)}
                     inputRef={ref}
                     id={name}
-                    className={errors[name]?'input-error':'input'}
+                    className="input"
                     placeholder={rest.placeholder}
-                    // {...register('cpf', { required: true })}
                 />}
             /> }
         </div>
