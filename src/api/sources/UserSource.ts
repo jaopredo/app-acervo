@@ -15,18 +15,16 @@ export default class UserSource implements UserSourceInterface {
 
     async login(credentials: UserLogin): Promise<any> {
         return await APIInterface.post<UserLogin>('login', { data: credentials }).catch(err => {
+            console.log(err)
             ErrorStorage.add(err)
             return err
         })
     }
 
     async logout(): Promise<any> {
-        try {
-            return await APIInterface.post('logout', { data: {} })
-        } catch(err) {
-            return {
-                message: "Error"
-            }
-        }
+        return await APIInterface.post('logout', { data: {} }).catch((err) => {
+            ErrorStorage.add(err)
+            return err
+        })
     }
 }

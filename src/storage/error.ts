@@ -14,7 +14,7 @@ export default class ErrorStorage {
             await LocalStorage.save('errors', [...parsedErrors])
         }
 
-        document.dispatchEvent(new Event('error-change-event'))
+        window.dispatchEvent(new Event('error-change-event'))
 
         setTimeout(() => {
             LocalStorage.save('errors', [])

@@ -38,7 +38,7 @@ export default function Page() {
     const onSubmit: SubmitHandler<UserRegister> = credentials => {
         async function register() {
             const resp = await userService.register(credentials)
-            
+
             if (resp) {
                 Promise.all([
                     LocalStorage.save('token', resp.authorisation.token),
@@ -60,7 +60,6 @@ export default function Page() {
                     like: inputValue
                 }
             } }).then(resp => {
-                console.log(resp.data)
                 return (resp.data as ClassroomType[]).map(classroom =>
                     ({ label: classroom.name, value: classroom.id })
                 )
@@ -111,7 +110,7 @@ export default function Page() {
                     <Input
                         name="registration"
                         label="Matrícula: "
-                        validation={{ required: true }}
+                        // validation={{ required: true }}
                         placeholder="Informe sua matrícula"
                         Icon={HiOutlineDocument}
                     />

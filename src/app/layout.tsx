@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 declare global {
-    interface DocumentEventMap {
+    interface WindowEventMap {
         'error-change-event': CustomEvent<{ initialArg: string }>
     }
 }

@@ -9,7 +9,6 @@ import ErrorStorage from "@/storage/error"
 export default function Errors() {
     const [ errors, setErrors ] = useState<string[]>([])
     const [ visible, setVisible ] = useState<boolean>(false)
-    const documentRef = useRef(document)
 
     useEffect(() => {
         setTimeout(() => {
@@ -24,7 +23,7 @@ export default function Errors() {
             setErrors(await ErrorStorage.get())
         }
         getErrors()
-    }, documentRef)
+    })
 
 
     return <AnimatePresence>{ visible && <motion.div
