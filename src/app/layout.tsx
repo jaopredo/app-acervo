@@ -3,12 +3,19 @@ import { Inter } from 'next/font/google'
 import '@/scss/global.scss'
 
 import { GlobalContextProvider } from '../contexts/global'
+import Errors from '@/components/alert/Errors'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Aplicativo Acervo',
   description: 'Um aplicativo do multimeios',
+}
+
+declare global {
+    interface WindowEventMap {
+        'error-change-event': CustomEvent<{ initialArg: string }>
+    }
 }
 
 export default function RootLayout({
@@ -19,11 +26,12 @@ export default function RootLayout({
     return (
         <html lang="pt-br">
             <body className={inter.className}>
-                <GlobalContextProvider>
-                    <div className="interface">
+                <div className="interface">
+                    <GlobalContextProvider>
                         {children}
-                    </div>
-                </GlobalContextProvider>
+                        <Errors/>
+                    </GlobalContextProvider>
+                </div>
             </body>
         </html>
     )

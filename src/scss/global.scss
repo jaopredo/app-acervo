@@ -59,6 +59,5 @@
 }
 
 .input-error {
-    @extend .input;
     @apply text-rose-500 border-b-rose-500 focus:border-b-rose-500;
 }
