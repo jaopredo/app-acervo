@@ -28,4 +28,10 @@ export default class UserService {
         .then((response: AxiosResponse) => response.data)
         .catch((err) => Promise.reject(err))
     }
+
+    async verify() {
+        return await this.source.verify()
+        .then((response: AxiosResponse) => response.data)
+        .catch((err) => Promise.reject(err))
+    }
 }

@@ -27,4 +27,12 @@ export default class UserSource implements UserSourceInterface {
             return err
         })
     }
+
+
+    async verify(): Promise<any> {
+        return await APIInterface.get('verify', {}).catch((err) => {
+            ErrorStorage.add(err)
+            return err
+        })
+    }
 }

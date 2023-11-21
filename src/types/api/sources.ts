@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios"
 
 export interface GetRequestProps {
-    id: number
+    // id: number
     customHeader?: AxiosRequestConfig<any>
 }
 
