@@ -2,7 +2,7 @@
 @font-face {  // Normal
     font-family: 'Ubuntu';
     src: url('../../resources/fonts/Ubuntu/Ubuntu-Regular.ttf');
-    font-weight: normal;
+    font-weight: 400;
 }
 @font-face {  // Negrito
     font-family: 'Ubuntu';
@@ -37,11 +37,11 @@
 @font-face {  // Médio
     font-family: 'Ubuntu';
     src: url('../../resources/fonts/Ubuntu/Ubuntu-Medium.ttf');
-    font-weight: bold;
+    font-weight: 600;
 }
 @font-face {  // Médio
     font-family: 'Ubuntu';
     src: url('../../resources/fonts/Ubuntu/Ubuntu-MediumItalic.ttf');
     font-style: italic;
-    font-weight: bold;
+    font-weight: 600;
 }

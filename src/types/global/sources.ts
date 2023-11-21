@@ -22,4 +22,5 @@ export interface UserSourceInterface {
     register: (credentials: UserRegister) => Promise<any>
     login: (credentials: UserLogin) => Promise<any>
     logout: () => Promise<any>
+    verify: () => Promise<any>
 }

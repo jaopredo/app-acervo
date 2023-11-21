@@ -38,11 +38,14 @@ export default function Page() {
     const onSubmit: SubmitHandler<UserRegister> = credentials => {
         async function register() {
             const resp = await userService.register(credentials)
-            
-            LocalStorage.save('token', resp.authorisation.token)
-            LocalStorage.save('user', resp.user)
 
-            router.push('/signed/books')
+            if (resp) {
+                Promise.all([
+                    LocalStorage.save('token', resp.authorisation.token),
+                    LocalStorage.save('user', resp.user)
+                ])
+                router.push('/signed/books')
+            }
         }
         register()
     }
@@ -57,7 +60,6 @@ export default function Page() {
                     like: inputValue
                 }
             } }).then(resp => {
-                console.log(resp.data)
                 return (resp.data as ClassroomType[]).map(classroom =>
                     ({ label: classroom.name, value: classroom.id })
                 )
@@ -108,7 +110,7 @@ export default function Page() {
                     <Input
                         name="registration"
                         label="Matrícula: "
-                        validation={{ required: true }}
+                        // validation={{ required: true }}
                         placeholder="Informe sua matrícula"
                         Icon={HiOutlineDocument}
                     />
@@ -127,7 +129,13 @@ export default function Page() {
                     <Password
                         name="password"
                         label="Senha: "
-                        validation={{ required: true }}
+                        validation={{
+                            required: true,
+                            minLength: {
+                                message: "Senha muito curta",
+                                value: 8
+                            }
+                        }}
                         placeholder='Digite sua senha'
                         Icon={FaLock}
                     />
