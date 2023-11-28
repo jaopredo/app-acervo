@@ -12,6 +12,9 @@ import LocalStorage from "@/storage"
 
 interface APIINterfaceAdapterMethods {
     axiosInstance: AxiosInstance | null
+    token: string | null
+
+    setToken: (token: string) => void
 
     getAll: (url: string, page: number, filters: { [x: string]: { [y: string]: string } }) => Promise<any>
     get: (url: string, props: GetRequestProps) => Promise<any>
@@ -27,7 +30,12 @@ interface APIINterfaceAdapterMethods {
  * no Laravel, então precisam ser adaptados aqui
  */
 class APIInterfaceAdapter implements APIINterfaceAdapterMethods {
-    axiosInstance: AxiosInstance | null = null
+    public axiosInstance: AxiosInstance | null = null
+    public token: string | null = null
+
+    setToken(token: string) {
+        if (this.axiosInstance) this.axiosInstance.defaults.headers.Authorization = `Bearer ${token}`
+    }
 
     constructor () {
         const setInstance = async () => {

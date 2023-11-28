@@ -1,6 +1,7 @@
 'use client'
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import Link from "next/link"
 
 /* ICONS */
@@ -10,6 +11,7 @@ import { FaLock } from "react-icons/fa"
 /* COMPONENTS */
 import Input from "@/components/inputs/Input"
 import Password from "@/components/inputs/Password"
+import Submit from "@/components/inputs/Submit"
 import GoBack from "@/components/layout/GoBack"
 
 /* STORAGE */
@@ -26,17 +28,24 @@ export default function Page() {
     const router = useRouter()
     const { handleSubmit } = methods
     const { userService } = useGlobalContext()
+    const [ loading, setLoading ] = useState<boolean>(false)
 
     const onSubmit: SubmitHandler<UserLogin> = credentials => {
         async function login() {
+            setLoading(true)
+
             const resp = await userService.login(credentials)
             if (resp) {
-                Promise.all([
+                await Promise.all([
                     LocalStorage.save('token', resp.authorisation.token),
                     LocalStorage.save('user', resp.user)
                 ])
+                userService.setToken(resp.authorisation.token)
+                
                 router.push('/signed/books')
             }
+
+            setLoading(false)
         }
         login()
     }
@@ -65,7 +74,7 @@ export default function Page() {
                     Icon={FaLock}
                 />
 
-                <button type="submit" className="leaf-button w-full mb-3">LOGIN</button>
+                <Submit disabled={loading}>LOGIN</Submit>
                 <Link href='/auth/forgot-password'
                     className="text-leaf underline mt-2 active:text-leaf-darker">
                     Esqueceu a senha?

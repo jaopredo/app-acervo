@@ -23,4 +23,5 @@ export interface UserSourceInterface {
     login: (credentials: UserLogin) => Promise<any>
     logout: () => Promise<any>
     verify: () => Promise<any>
+    setToken: (token: string) => void
 }

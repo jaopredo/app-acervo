@@ -30,7 +30,7 @@
 
 .leaf-button {
     @extend .button;
-    @apply bg-leaf text-white active:bg-leaf-dark;
+    @apply bg-leaf text-white active:bg-leaf-dark disabled:bg-leaf-light;
 }
 
 /* FORMULÁRIO */

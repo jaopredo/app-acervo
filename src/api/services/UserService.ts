@@ -11,6 +11,10 @@ export default class UserService {
         this.source = new UserSource
     }
 
+    setToken(token: string) {
+        this.source.setToken(token)
+    }
+
     async register(credentials: UserRegister): Promise<UserAuthResponse> {
         return await this.source.register(credentials)
         .then((response: AxiosResponse) => response.data)

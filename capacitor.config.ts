@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.acervo.home.android',
+  appId: 'app.acervo.sauto.android',
   appName: 'acervo-app',
   webDir: 'out',
   server: {

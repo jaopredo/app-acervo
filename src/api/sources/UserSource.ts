@@ -35,4 +35,8 @@ export default class UserSource implements UserSourceInterface {
             return err
         })
     }
+
+    setToken(token: string) {
+        APIInterface.setToken(token)
+    }
 }

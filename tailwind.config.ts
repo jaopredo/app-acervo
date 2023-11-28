@@ -14,9 +14,7 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-    },
-    colors: {
-        ...colors,
+      colors: {
         leaf: {
             lighter: '#E6F4F1',
             light: '#96D2C6',
@@ -31,6 +29,7 @@ const config: Config = {
             dark: '#071A34',
             darker: '#05152b',
         }
+      }
     },
   },
   plugins: [],
