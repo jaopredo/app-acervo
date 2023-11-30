@@ -1,12 +1,12 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.acervo.sauto.android',
+  appId: 'app.acervo.home.android',
   appName: 'acervo-app',
   webDir: 'out',
   server: {
     androidScheme: 'https',
-    url: 'http://192.168.1.200:3000',
+    url: 'http://192.168.18.200:3000',
     cleartext: true
   }
 };

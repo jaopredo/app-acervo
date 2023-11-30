@@ -1,6 +1,7 @@
 'use client'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import AsyncSelect from 'react-select/async'
 import LocalStorage from '@/storage'
 
@@ -15,6 +16,7 @@ import { IoDocumentTextOutline } from "react-icons/io5"
 import Input from '@/components/inputs/Input'
 import Password from '@/components/inputs/Password'
 import GoBack from '@/components/layout/GoBack'
+import Submit from '@/components/inputs/Submit'
 
 /* CONTEXTS */
 import { useGlobalContext } from '@/contexts'
@@ -26,6 +28,7 @@ import { ClassroomType } from '@/types/api/modals'
 export default function Page() {
     const methods = useForm<UserRegister>()
     const router = useRouter()
+    const [ loading, setLoading ] = useState<boolean>(false)
     
     const {
         handleSubmit,
@@ -37,13 +40,17 @@ export default function Page() {
 
     const onSubmit: SubmitHandler<UserRegister> = credentials => {
         async function register() {
+            setLoading(true)
             const resp = await userService.register(credentials)
 
             if (resp) {
-                Promise.all([
+                await Promise.all([
                     LocalStorage.save('token', resp.authorisation.token),
                     LocalStorage.save('user', resp.user)
                 ])
+                userService.setToken(resp.authorisation.token)
+
+                setLoading(false)
                 router.push('/signed/books')
             }
         }
@@ -153,7 +160,7 @@ export default function Page() {
                     />
                 </fieldset>
 
-                <button type="submit" className="leaf-button w-full rounded-2xl">ENVIAR</button>
+                <Submit disabled={loading}>ENVIAR</Submit>
             </form>
         </FormProvider>
     </div>
