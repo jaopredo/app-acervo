@@ -1,12 +1,12 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.acervo.home.android',
-  appName: 'acervo-app',
+  appId: 'app.acervo.sauto.android',
+  appName: 'Aplicativo Multimeios (Sauto)',
   webDir: 'out',
   server: {
     androidScheme: 'https',
-    url: 'http://192.168.18.200:3000',
+    url: 'http://192.168.1.200:3000',
     cleartext: true
   }
 };

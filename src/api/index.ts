@@ -1,3 +1,4 @@
+'use client'
 import axios, { AxiosInstance } from "axios"
 import API_CONFIG from "@/config/api"
 import {

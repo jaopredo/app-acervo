@@ -23,7 +23,7 @@ export function SignedContextProvider({ children }: { children: ReactNode }) {
         		LocalStorage.get('token'),
         		LocalStorage.get('user')
         	])
-        	
+
             // Coloco o contexto global
             setContextObject({
                 auth: {

@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios"
 import { SourceInterface } from "@/types/global/sources"
+import { GetAllResponseType } from "@/types/api/response"
 
 import GenericSource from "../sources/GenericSource"
 
@@ -18,17 +19,18 @@ export default class GenericService {
 
     alias(value: string) {
         this.source.alias(value)
+        return this
     }
 
-    async getAll({page, filters}: GetAllServiceRequestProps = { page: 1, filters: {} }): Promise<AxiosResponse> {
+    async getAll<T>({page, filters}: GetAllServiceRequestProps = { page: 1, filters: {} }): Promise<AxiosResponse> {
         return await this.source.getAll(page || 1, filters).then((response: AxiosResponse) => {
-            return response.data
+            return response.data as GetAllResponseType<T>
         }).catch((e: Error) => Promise.reject(e))
     }
 
-    async get({ id, customHeader }: GetRequestProps): Promise<AxiosResponse> {
+    async get<T>({ id, customHeader }: GetRequestProps): Promise<AxiosResponse> {
         return await this.source.get({id, customHeader}).then((response: AxiosResponse) => {
-            return response.data
+            return response.data as T
         }).catch((e: Error) => Promise.reject(e))
     }
 

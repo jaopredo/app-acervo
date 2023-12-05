@@ -42,7 +42,7 @@ export default function Page() {
                 ])
                 userService.setToken(resp.authorisation.token)
                 
-                router.push('/signed/books')
+                router.push('/books')
             }
 
             setLoading(false)

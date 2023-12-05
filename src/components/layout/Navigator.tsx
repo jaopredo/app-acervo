@@ -24,8 +24,8 @@ export default function Navigator({options, pathname}: NavigatorProps) {
 
 function NavigatorCard({ Icon, name, route, pathname }: NavigatorCardProps) {
 
-    return <li><Link className='w-full h-full flex flex-col items-center justify-center' href={'/signed'+route}>
-        <Icon className={`w-9 h-9 ${pathname == '/signed'+route && 'text-leaf'}`}/>
+    return <li><Link className='w-full h-full flex flex-col items-center justify-center' href={route}>
+        <Icon className={`w-9 h-9 ${pathname == route && 'text-leaf'}`}/>
         {name && <p className='text-center'>{name}</p>}
     </Link></li>
 }

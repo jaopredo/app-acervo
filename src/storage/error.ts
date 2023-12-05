@@ -1,9 +1,11 @@
+'use client'
 import LocalStorage from "."
 import { ErrorInterface } from "@/types/api/errors"
 import { parseApiErrors } from "@/utils/errors"
 
 export default class ErrorStorage {
     static async add(err: ErrorInterface) {
+        console.log(err)
         const parsedErrors = parseApiErrors(err)
         const errors = await LocalStorage.get('errors') as Array<{ message: string }>
 

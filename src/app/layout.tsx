@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/scss/global.scss'
+import Head from 'next/head'
 
 import { GlobalContextProvider } from '../contexts/global'
 import Errors from '@/components/alert/Errors'
@@ -25,6 +26,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="pt-br">
+            {/*<Head>
+                <meta name="viewport" content="width=1000; user-scalable=0;" />
+            </Head>*/}
             <body className={inter.className}>
                 <div className="interface">
                     <GlobalContextProvider>

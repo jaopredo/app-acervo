@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation"
 import MiddlewaresProvider from '@/middlewares'
 import { SignedContextProvider } from '@/contexts'
+import AnimationWrapper from '@/components/layout/AnimationWrapper'
 
 /* CONFIGS */
 import NAVIGATOR_CONFIG from "@/config/navigator"
@@ -14,15 +15,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return (
         <SignedContextProvider>
-            <MiddlewaresProvider>
-                <section className="flex flex-col items-center justify-center h-screen">
-                    <div className="flex-grow flex flex-col items-stretch justify-center">{children}</div>
-                    <Navigator
-                        options={NAVIGATOR_CONFIG}
-                        pathname={pathname}
-                    />
-                </section>
-            </MiddlewaresProvider>
+            <section className="flex flex-col items-center justify-center h-screen">
+                <AnimationWrapper className="flex-grow flex flex-col items-stretch w-full overflow-y-auto relative">
+                    {children}
+                </AnimationWrapper>
+                <Navigator
+                    options={NAVIGATOR_CONFIG}
+                    pathname={pathname}
+                />
+            </section>
         </SignedContextProvider>
     )
 }
