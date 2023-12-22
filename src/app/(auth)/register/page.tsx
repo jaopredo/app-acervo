@@ -86,18 +86,6 @@ export default function Page() {
         </div>
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='input-container'>
-                    <label htmlFor="classroom_id">Sala de Aula: </label>
-                    <AsyncSelect
-                        cacheOptions
-                        defaultOptions
-                        loadOptions={promiseClassrooms}
-                        placeholder="Escolha a sala de aula"
-                        onChange={(classroom) => {
-                            if (classroom) setValue('classroom_id', classroom.value)
-                        }}
-                    />
-                </div>
                 <fieldset className='input-group'>
                     <legend>Informações pessoais</legend>
                     <Input
@@ -131,6 +119,18 @@ export default function Page() {
                         Icon={IoDocumentTextOutline}
                     />
                 </fieldset>
+                <div className='input-container'>
+                    <label htmlFor="classroom_id">Sala de Aula: </label>
+                    <AsyncSelect
+                        cacheOptions
+                        defaultOptions
+                        loadOptions={promiseClassrooms}
+                        placeholder="Escolha a sala de aula"
+                        onChange={(classroom) => {
+                            if (classroom) setValue('classroom_id', classroom.value)
+                        }}
+                    />
+                </div>
                 <fieldset className='input-group'>
                     <legend>Senha</legend>
                     <Password
