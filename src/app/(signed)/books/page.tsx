@@ -1,21 +1,21 @@
 'use client'
-import { Suspense, lazy, useState, Children, useEffect, useMemo, useRef } from 'react'
+import { useState, Children, useEffect, useMemo, useRef, ChangeEvent, RefObject } from 'react'
 // import { useUpdateEffect } from 'usehooks-ts'
 import Loading from './loading'
 import Book from '@/components/Book'
 import { useGlobalContext } from "@/contexts"
 import { GetAllResponseType } from '@/types/api/response'
-import { useWindowSize } from 'usehooks-ts'
+import { BookType } from '@/types/components/book'
 import { TailSpin } from 'react-loader-spinner'
 
 
-function useIsInViewport(ref: any, setDebug: Function) {
+function useIsInViewport(ref: RefObject<any>) {
     const [ isIntersecting, setIsIntersecting ] = useState<boolean>(false)
 
-    const observer = useMemo(()=>new IntersectionObserver(entry => {
-        // setIsIntersecting(entry.isIntersecting)
-        console.log(ref.current)
-        console.log(entry)
+    const observer = useMemo(()=>new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            setIsIntersecting(entry.isIntersecting)
+        })
     }), [])
 
     useEffect(() => {
@@ -30,6 +30,26 @@ function useIsInViewport(ref: any, setDebug: Function) {
     return isIntersecting
 }
 
+function LastLoadingElement({ handleIsInViewPort }: { handleIsInViewPort: Function }) {
+    const loadingRef = useRef<HTMLLIElement>(null)
+
+    const isInViewPort = useIsInViewport(loadingRef)
+
+    useEffect(() => {
+        handleIsInViewPort()
+    }, [isInViewPort])
+
+    return <li ref={loadingRef} className="mt-4 mb-4 p-4"><TailSpin
+        height="40"
+        width="40"
+        color="#279D85"
+        ariaLabel="tail-spin-loading"
+        radius="1"
+        wrapperClass="w-full flex items-center justify-center"
+        visible={true}
+    /></li>
+}
+
 
 export default function Page() {
     const { genericService } = useGlobalContext()
@@ -39,36 +59,31 @@ export default function Page() {
     const [ searching, setSearching ] = useState<boolean>(false)
 
     const [ page, setPage ] = useState<number>(1)  // Página que indica quantos objetos já foram pesquisados
-    const [ previousBooks, setPreviousBooks ] = useState<BookType[]>()  // Livros que já foram buscados na API antes
+    const [ previousBooks, setPreviousBooks ] = useState<BookType[]>([])
     const [ booksObj, setBooksObj ] = useState<GetAllResponseType<BookType>|null>()  // Informações de paginação dos livros atuais
 
-    const loadingRef = useRef<HTMLSvgElement>(null)
-    const [ debug, setDebug ] = useState<any>({})
 
-    function handleOnScroll() {
-        if (loadingRef.current) {
-            const isLoadingOnScreen = useIsInViewport(loadingRef, setDebug)
-        }
-    }
-
-    function handleSearchChange(e) {
+    function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
         const { value } = e.target
         setFilter(value)
         setSearching(true)
     }
 
+    function handleIsInViewPort() {
+        setPage(page+1)
+    }
+
     useEffect(() => {
-        genericService.alias('books').getAll({ page, filters: {
+        genericService.alias('books').getAll<BookType>({ page, filters: {
             name: { like: filter }
         } }).then(resp => {
             setBooksObj(resp)
+            setPreviousBooks([...previousBooks, ...resp.data])
             setSearching(false)
         })
-    }, [ filter ])
+    }, [ filter, page ])
 
     return <>
-        {booksObj && <>
-
         <div className="
             sticky top-0 relative mb-10 z-50
         ">
@@ -81,23 +96,15 @@ export default function Page() {
                 onChange={handleSearchChange}
             />
         </div>
-
-        {!searching && <ul className="flex flex-col items-center justify-start gap-3 w-full">
-            {Children.toArray(booksObj.data.map(book => <Book {...book}/>))}
-            <li ref={loadingRef} onScroll={handleOnScroll} className="mt-4 mb-4 p-4"><TailSpin
-                height="40"
-                width="40"
-                color="#279D85"
-                ariaLabel="tail-spin-loading"
-                radius="1"
-                wrapperClass="w-full flex items-center justify-center"
-                visible={true}
-            /></li>
-            <li>{JSON.stringify(debug)}</li>
-        </ul>}
-        {searching && <Loading/>}
-
+        {(!searching && booksObj) && <>
+            {booksObj.data.length>0 && <ul className="flex flex-col items-center justify-start overflow-auto gap-3 w-full">
+                {Children.toArray(previousBooks.map(book => <Book {...book}/>))}
+                <LastLoadingElement handleIsInViewPort={handleIsInViewPort}/>
+            </ul>}
+            {booksObj.data.length <= 0 && <p className='
+                text-leaf font-bold text-center
+            '>NENHUM LIVRO FOI ENCONTRADO</p>}
         </>}
-        {!booksObj && <Loading/>}
+        {searching && <Loading/>}
     </>
 }

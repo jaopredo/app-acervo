@@ -22,15 +22,15 @@ export default class GenericService {
         return this
     }
 
-    async getAll<T>({page, filters}: GetAllServiceRequestProps = { page: 1, filters: {} }): Promise<AxiosResponse> {
+    async getAll<T>({page, filters}: GetAllServiceRequestProps = { page: 1, filters: {} }): Promise<GetAllResponseType<T>> {
         return await this.source.getAll(page || 1, filters).then((response: AxiosResponse) => {
             return response.data as GetAllResponseType<T>
         }).catch((e: Error) => Promise.reject(e))
     }
 
-    async get<T>({ id, customHeader }: GetRequestProps): Promise<AxiosResponse> {
+    async get<T>({ id, customHeader }: GetRequestProps): Promise<AxiosResponse<T>> {
         return await this.source.get({id, customHeader}).then((response: AxiosResponse) => {
-            return response.data as T
+            return response.data
         }).catch((e: Error) => Promise.reject(e))
     }
 
