@@ -7,12 +7,6 @@ import { createContext, useContext, ReactNode, useState } from "react"
 import GenericService from "@/api/services/GenericService"
 import UserService from "@/api/services/UserService"
 
-/* STORAGE */
-import LocalStorage from "@/storage"
-
-/* TYPES */
-import { UserRegister } from "@/types/components/user"
-
 const defaultContextObject = {
     genericService: new GenericService,  // Serviço genérico
     userService: new UserService,  // Serviço de usuário

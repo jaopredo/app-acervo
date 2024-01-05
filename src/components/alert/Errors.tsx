@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { IoIosCloseCircle } from "react-icons/io"
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEventListener } from "usehooks-ts"
@@ -17,7 +17,7 @@ export default function Errors() {
     }, [errors])
 
 
-    useEventListener('error-change-event', (event: Event) => {
+    useEventListener('error-change-event', () => {
         setVisible(true)
         async function getErrors() { 
             setErrors(await ErrorStorage.get())

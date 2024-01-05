@@ -4,3 +4,7 @@ export type ReserveType = {
 	student_id: number,
 	book_id: number
 }
+
+export type ReservePostType = {
+	book_id: number
+}

@@ -62,8 +62,8 @@ class APIInterfaceAdapter implements APIINterfaceAdapterMethods {
         })
     }
 
-    async get(url: string, { customHeader }: GetRequestProps) {
-        return this.axiosInstance?.get(`/${url}`, customHeader)
+    async get(url: string, { customHeader, id }: GetRequestProps) {
+        return this.axiosInstance?.get(`/${url}/${id?id:''}`, customHeader)
     }
 
     async post<T>(url: string, { data, customHeader }: PostRequestProps<T>) {

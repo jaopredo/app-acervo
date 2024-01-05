@@ -85,7 +85,7 @@ export default function Page() {
 
     return <>
         <div className="
-            sticky top-0 relative mb-10 z-50
+            sticky top-0 z-50
         ">
             <div className="w-full h-7 block bg-leaf"/>
             <input
@@ -97,7 +97,7 @@ export default function Page() {
             />
         </div>
         {(!searching && booksObj) && <>
-            {booksObj.data.length>0 && <ul className="flex flex-col items-center justify-start overflow-auto gap-3 w-full">
+            {booksObj.data.length>0 && <ul className="flex flex-col items-center justify-start overflow-auto gap-3 w-full h-full">
                 {Children.toArray(previousBooks.map(book => <Book {...book}/>))}
                 <LastLoadingElement handleIsInViewPort={handleIsInViewPort}/>
             </ul>}

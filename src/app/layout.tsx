@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/scss/global.scss'
-import Head from 'next/head'
 
 import { GlobalContextProvider } from '../contexts/global'
 import Errors from '@/components/alert/Errors'
+import Messages from '@/components/alert/Messages'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 
 declare global {
     interface WindowEventMap {
-        'error-change-event': CustomEvent<{ initialArg: string }>
+        'error-change-event': CustomEvent,
+        'success-message-event': CustomEvent<{ message: string }>
     }
 }
 
@@ -34,6 +35,7 @@ export default function RootLayout({
                     <GlobalContextProvider>
                         {children}
                         <Errors/>
+                        <Messages/>
                     </GlobalContextProvider>
                 </div>
             </body>

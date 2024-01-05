@@ -1,6 +1,5 @@
 'use client'
 import { usePathname } from "next/navigation"
-import MiddlewaresProvider from '@/middlewares'
 import { SignedContextProvider } from '@/contexts'
 import AnimationWrapper from '@/components/layout/AnimationWrapper'
 

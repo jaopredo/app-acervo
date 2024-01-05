@@ -17,7 +17,7 @@ export default function Book(props: BookType) {
 		if (props.loans.length > 0) setState('unavailable')
 	})
 
-	return <li onClick={handleBookClick} className="flex items-center justify-center shadow-md w-[90%] h-40 p-3 rounded-md active:scale-95 transition-all relative">
+	return <li onClick={handleBookClick} className="first:mt-8 md:first:mt-5 hover:cursor-pointer flex items-center justify-center shadow-md w-[90%] md:h-96 h-40 p-3 rounded-md active:scale-95 transition-all relative">
 		<div
 			className={`
 				bg-[url(http://4.bp.blogspot.com/-I_jGdp4dC78/U2vDgAzSUQI/AAAAAAAAC6I/_aPl5i811Sw/s1600/imagem.jpg)]

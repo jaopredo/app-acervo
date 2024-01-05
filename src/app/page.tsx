@@ -1,23 +1,9 @@
 'use client'
 import Link from "next/link"
 import { IoBook } from 'react-icons/io5'
-import { useEffectOnce } from 'usehooks-ts'
 import AnimationWrapper from "@/components/layout/AnimationWrapper"
-import { useGlobalContext } from '@/contexts'
-import { useRouter } from 'next/navigation'
 
 export default function Home() {
-    const { userService } = useGlobalContext()
-    const router = useRouter()
-
-    useEffectOnce(() => {
-        userService.verify().then(resp => {
-            if (resp) {
-                router.push('/books')
-            }
-        }).catch(err=>{})
-    })
-
     return <AnimationWrapper>
         <section className="flex items-center justify-center flex-col">
             <IoBook className="text-leaf w-32 h-auto"/>
